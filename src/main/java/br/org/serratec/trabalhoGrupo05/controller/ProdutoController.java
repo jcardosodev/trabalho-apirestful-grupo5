@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.trabalhoGrupo05.dto.ProdutoDto;
+import br.org.serratec.trabalhoGrupo05.dto.ReferenceDto;
 import br.org.serratec.trabalhoGrupo05.service.ProdutoService;
 import jakarta.validation.Valid;
 
@@ -42,9 +43,9 @@ public class ProdutoController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/valor")
-	public ResponseEntity<List<ProdutoDto>> obterPorValor(@RequestBody String valor) {
-		return ResponseEntity.ok(servico.obterValor(Double.valueOf(valor)));
+	@GetMapping("/valor/maior")
+	public ResponseEntity<List<ProdutoDto>> obterPorValorMaior(@RequestBody String valor) {
+		return ResponseEntity.ok(servico.obterValorMaior(Double.valueOf(valor)));
 	}
 	
 	@GetMapping("/categoria")
@@ -55,6 +56,21 @@ public class ProdutoController {
 	@GetMapping("/nome")
 	public ResponseEntity<List<ProdutoDto>> obterPorNome(@RequestBody String nome) {
 		return ResponseEntity.ok(servico.obterNome(nome));
+	}
+	
+	@GetMapping("/valor/menor")
+	public ResponseEntity<List<ProdutoDto>> obterPorValorMenor(@RequestBody String valor) {
+		return ResponseEntity.ok(servico.obterValorMenor(Double.valueOf(valor)));
+	}
+	
+	@GetMapping("/valor/entre")
+	public ResponseEntity<List<ProdutoDto>> obterValorBetween(@RequestBody ReferenceDto produto) {
+		return ResponseEntity.ok(servico.obterValorEntre(produto.valor1(), produto.valor2()));
+	}
+	
+	@GetMapping("valor/crescente")
+	public ResponseEntity<List<ProdutoDto>> obterPorValorCrescente() {
+		return ResponseEntity.ok(servico.crescenteValor());
 	}
 	
 	@PostMapping

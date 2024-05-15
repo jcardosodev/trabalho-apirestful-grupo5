@@ -57,7 +57,7 @@ public class ProdutoService {
 		return Optional.of(produto.get().toDto());
 	}
 
-	public List<ProdutoDto> obterValor(Double valor) {
+	public List<ProdutoDto> obterValorMaior(Double valor) {
 		
 		return produtoRepositorio.findByValorGreaterThan(valor).stream()
 				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
@@ -76,5 +76,26 @@ public class ProdutoService {
 		return produtoRepositorio.findByNomeContainingIgnoreCase(nome).stream()
 				.map(n -> new ProdutoDto(n.getId(), n.getNome(), 
 				n.getCategoria(), n.getValor(), n.getDescricao())).toList();
+	}
+
+	public List<ProdutoDto> obterValorMenor(Double valor) {
+		
+		return produtoRepositorio.findByValorLessThan(valor).stream()
+				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
+				v.getCategoria(), v.getValor(), v.getDescricao())).toList();
+	}
+
+	public List<ProdutoDto> obterValorEntre(Double valor1, Double valor2) {
+		
+		return produtoRepositorio.findByValorBetween(valor1, valor2).stream()
+				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
+				v.getCategoria(), v.getValor(), v.getDescricao())).toList();
+	}
+
+	public List<ProdutoDto> crescenteValor() {
+
+		return produtoRepositorio.findByOrderByValorAsc().stream()
+				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
+				v.getCategoria(), v.getValor(), v.getDescricao())).toList();
 	}
 }

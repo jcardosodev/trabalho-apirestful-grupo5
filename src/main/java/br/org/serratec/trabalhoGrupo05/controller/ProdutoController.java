@@ -42,6 +42,20 @@ public class ProdutoController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/valor")
+	public ResponseEntity<List<ProdutoDto>> obterPorValor(@RequestBody String valor) {
+		return ResponseEntity.ok(servico.obterValor(Double.valueOf(valor)));
+	}
+	
+	@GetMapping("/categoria")
+	public ResponseEntity<List<ProdutoDto>> obterPorCategoria(@RequestBody String categoria) {
+		return ResponseEntity.ok(servico.obterCategoria(categoria));
+	}
+	
+	@GetMapping("/nome")
+	public ResponseEntity<List<ProdutoDto>> obterPorNome(@RequestBody String nome) {
+		return ResponseEntity.ok(servico.obterNome(nome));
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

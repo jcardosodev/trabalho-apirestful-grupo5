@@ -56,4 +56,25 @@ public class ProdutoService {
 		
 		return Optional.of(produto.get().toDto());
 	}
+
+	public List<ProdutoDto> obterValor(Double valor) {
+		
+		return produtoRepositorio.findByValorGreaterThan(valor).stream()
+				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
+				v.getCategoria(), v.getValor(), v.getDescricao())).toList();
+	}
+
+	public List<ProdutoDto> obterCategoria(String categoria) {
+
+		return produtoRepositorio.findByCategoriaContainingIgnoreCase(categoria).stream()
+				.map(c -> new ProdutoDto(c.getId(), c.getNome(), 
+				c.getCategoria(), c.getValor(), c.getDescricao())).toList();
+	}
+
+	public List<ProdutoDto> obterNome(String nome) {
+		
+		return produtoRepositorio.findByNomeContainingIgnoreCase(nome).stream()
+				.map(n -> new ProdutoDto(n.getId(), n.getNome(), 
+				n.getCategoria(), n.getValor(), n.getDescricao())).toList();
+	}
 }

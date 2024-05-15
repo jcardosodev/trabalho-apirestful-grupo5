@@ -14,5 +14,6 @@ public interface ProdutoRepositorio extends JpaRepository<Produto, Long> {
 	List<Produto> findByValorLessThan(Double valor);
 	List<Produto> findByValorBetween(Double valor1, Double valor2);
 	List<Produto> findByOrderByValorAsc();
+	List<Produto> findByValorOrCategoriaContainingIgnoreCase(Double valor, String categoria);
 	
 }

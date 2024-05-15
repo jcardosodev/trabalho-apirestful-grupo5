@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.trabalhoGrupo05.dto.ProdutoDto;
 import br.org.serratec.trabalhoGrupo05.model.Produto;
 import br.org.serratec.trabalhoGrupo05.repository.ProdutoRepositorio;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Service
 public class ProdutoService {
@@ -97,5 +99,13 @@ public class ProdutoService {
 		return produtoRepositorio.findByOrderByValorAsc().stream()
 				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
 				v.getCategoria(), v.getValor(), v.getDescricao())).toList();
+	}
+
+	public List<ProdutoDto> obterValorOuCategoria(Double valor, String categoria) {
+		
+		return produtoRepositorio.findByValorOrCategoriaContainingIgnoreCase(valor, categoria).stream()
+				.map(v -> new ProdutoDto(v.getId(), v.getNome(), 
+				v.getCategoria(), v.getValor(), v.getDescricao())).toList();
+	
 	}
 }

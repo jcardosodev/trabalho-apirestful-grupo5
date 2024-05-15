@@ -73,6 +73,11 @@ public class ProdutoController {
 		return ResponseEntity.ok(servico.crescenteValor());
 	}
 	
+	@GetMapping("valor_categoria")
+	public ResponseEntity<List<ProdutoDto>> obterPorValorOuCategoria(@RequestBody ProdutoDto produto) {
+		return ResponseEntity.ok(servico.obterValorOuCategoria(produto.valor(), produto.categoria()));
+	}
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ProdutoDto cadastrarProduto (@Valid @RequestBody ProdutoDto produto) {
